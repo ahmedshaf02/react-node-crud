@@ -1,0 +1,42 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.formContainer{
+box-shadow: 0px 4px 12px -3px rgba(187, 181, 181, 0.75);
+border-radius: 10px;
+padding: 5%;
+font-weight: 600;
+overflow: auto;
+}
+
+.submitBtn{
+  padding: 8px 16px;
+  color: rgb(228, 224, 224);
+  background-color: black;
+  border-radius: 6px
+}
+.submitBtn:hover{
+  padding: 8px 16px !important;
+  border: 0.6px solid black !important;
+  background-color:transparent !important;
+  color: rgb(92, 88, 88) !important;
+  border-radius: 6px!important;
+}
+.viewBtn{
+  padding: 8px 16px !important;
+  border: 0.6px solid black !important;
+  background-color:transparent !important;
+  color: rgb(7, 7, 7) !important;
+  border-radius: 6px!important;
+  opacity: 0.7;
+}
+.viewBtn:hover{
+  padding: 8px 16px !important;
+  border: 1px solid black !important;
+  background-color:transparent !important;
+  color: black !important;
+  border-radius: 6px!important;
+  opacity: 1;
+}
