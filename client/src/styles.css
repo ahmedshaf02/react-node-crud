@@ -40,3 +40,7 @@ overflow: auto;
   border-radius: 6px!important;
   opacity: 1;
 }
+
+.cursor{
+  cursor: pointer;
+}

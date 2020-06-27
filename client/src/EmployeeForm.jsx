@@ -1,8 +1,13 @@
 
 import React, { useState } from "react"
 import "./styles.css"
-const EmployeeForm =()=>{
+import {useDispatch} from "react-redux"
+import EmployeeDetails from "./EmployeeDetails"
 
+const EmployeeForm =(props)=>{
+
+  const dispatch = useDispatch()
+  const [details,setDetails] = useState(false)
   // for form input
   const [data,setData] = useState({
     name:"",
@@ -10,6 +15,18 @@ const EmployeeForm =()=>{
     mobile:"",
     city:""
   })
+  
+  const handleEdit=(data)=>{
+    // const {name,email,mobile,city} = data
+    setData({
+      ...data,
+      name: data.name
+    })
+  }
+  console.log(props.data)
+  if(props.data){
+    handleEdit(props.data)
+  }
 
 
   const handleFormSubmit=e=>{
@@ -32,14 +49,19 @@ const EmployeeForm =()=>{
         if(data.error){
           alert(data.error)
         }
-        
-
+        dispatch({type:"UPDATE_NEW",payload:data})
+        alert("eployee added successfully")
       })
       .catch(err=>console.log(err))
       
       return (()=>{
         return
       })
+  }
+
+  if(details){
+    // setData({})
+    return <EmployeeDetails/>
   }
   
   return(
@@ -53,7 +75,8 @@ const EmployeeForm =()=>{
             <div className="row text-left">
               <div className="col ">
                 <label >Full name</label>
-                <input value={data.name} onChange={e=>setData({...data,name:e.target.value})}
+                <input value={data.name} 
+                onChange={e=>setData({...data,name:e.target.value})}
                   type="text" className="form-control" placeholder="First name"/>
               </div>
             </div>
@@ -81,7 +104,7 @@ const EmployeeForm =()=>{
 
             <div className="text-left">
               <button type="submit" className=" mt-4 text-left btn submitBtn">Submit</button>
-              <button type="button"className=" mt-4 ml-3 text-left btn viewBtn">View All</button>
+              <button onClick={()=>setDetails(true)} type="button"className=" mt-4 ml-3 text-left btn viewBtn">View All</button>
             </div>
           </form>
           </div>
