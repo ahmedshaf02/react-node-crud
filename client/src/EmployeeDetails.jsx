@@ -23,7 +23,8 @@ const EmployeeDetails =()=>{
         }
       }).then(data=>data.json())
       .then(data=>{
-        console.log(data.employee)
+        // console.log(data.employee)
+        localStorage.setItem("employee",JSON.stringify(data.employee))
         dispatch({type:"UPDATE",payload:data.employee})
       })
       .catch(err=>console.log(err))
@@ -42,7 +43,7 @@ const EmployeeDetails =()=>{
         }
       }).then(data=>data.json())
       .then(data=>{
-        console.log(data)
+        // console.log(data)
         dispatch({type:"DELETE",payload:data.employee})
       })
       .catch(err=>console.log(err))
@@ -53,10 +54,10 @@ const EmployeeDetails =()=>{
 
     }
 
-    const handleEditEmployee=(edit)=>{
-      setEdit(edit)
+    const handleEditEmployee=(id)=>{
+
+      setEdit(id)
       setForm(true)
-      
     }
 
   // to toggle from 

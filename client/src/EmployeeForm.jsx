@@ -1,13 +1,15 @@
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./styles.css"
 import {useDispatch} from "react-redux"
 import EmployeeDetails from "./EmployeeDetails"
 
 const EmployeeForm =(props)=>{
 
+  console.log(props)
   const dispatch = useDispatch()
   const [details,setDetails] = useState(false)
+
   // for form input
   const [data,setData] = useState({
     name:"",
@@ -15,18 +17,23 @@ const EmployeeForm =(props)=>{
     mobile:"",
     city:""
   })
-  
-  const handleEdit=(data)=>{
-    // const {name,email,mobile,city} = data
+
+useEffect(()=>{
+
+  if(props.data){
+
     setData({
-      ...data,
-      name: data.name
+      
+      name:data.name,
+      email:data.email,
+      mobile:data.mobile,
+      city:data.city,
     })
   }
-  console.log(props.data)
-  if(props.data){
-    handleEdit(props.data)
-  }
+
+},[props])
+  
+
 
 
   const handleFormSubmit=e=>{
