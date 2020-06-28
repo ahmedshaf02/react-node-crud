@@ -19,6 +19,11 @@ export default (state=initState,{type,payload})=>{
         employee:[...state.employee,payload]
       }
 
+    case "UPDATE_EMPLOYEE":
+      return{
+        employee:state.employee.map(ele=>ele._id=== payload._id?payload:ele)
+      }
+
     case "DELETE":
       return{
         employee:state.employee.filter(ele=>ele._id !== payload._id)

@@ -10,7 +10,7 @@ const EmployeeDetails =()=>{
   const dispatch = useDispatch()
   const state = useSelector(state=>state)
   const [form,setForm] = useState(false)
-  const [edit,setEdit] =  useState({})
+  const [edit,setEdit] =  useState(null)
   
   // console.log(state)
 
@@ -62,7 +62,7 @@ const EmployeeDetails =()=>{
 
   // to toggle from 
     if(form){
-      return <EmployeeForm data={edit}/>
+      return <EmployeeForm data={edit?edit:null}/>
     }
 
   return(

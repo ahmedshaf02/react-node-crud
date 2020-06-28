@@ -6,7 +6,6 @@ import EmployeeDetails from "./EmployeeDetails"
 
 const EmployeeForm =(props)=>{
 
-  console.log(props)
   const dispatch = useDispatch()
   const [details,setDetails] = useState(false)
 
@@ -21,17 +20,18 @@ const EmployeeForm =(props)=>{
 useEffect(()=>{
 
   if(props.data){
+      // console.log(props.data,"inside useEffect")
 
     setData({
       
-      name:data.name,
-      email:data.email,
-      mobile:data.mobile,
-      city:data.city,
+      name:props.data.name,
+      email:props.data.email,
+      mobile:props.data.mobile,
+      city:props.data.city,
     })
   }
 
-},[props])
+},[props.data])
   
 
 
@@ -42,24 +42,50 @@ useEffect(()=>{
       if(!name || !email || !mobile || !city){
         return alert("Error: please enter value")
       }
-      console.log(data)
+      // console.log(data)
 
-      fetch("https://kmogu.sse.codesandbox.io/addemployee",{
-        method:"post",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({name,email,mobile,city})
+      if(props.data){
+        const id = props.data._id
 
-      }).then(data=>data.json())
-      .then(data=>{
-        if(data.error){
-          alert(data.error)
-        }
-        dispatch({type:"UPDATE_NEW",payload:data})
-        alert("eployee added successfully")
-      })
-      .catch(err=>console.log(err))
+        fetch(`https://kmogu.sse.codesandbox.io/update/${id}`,{
+          method:"put",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({name,email,mobile,city})
+  
+        }).then(data=>data.json())
+        .then(data=>{
+          if(data.error){
+            alert(data.error)
+          }
+          console.log(data)
+          dispatch({type:"UPDATE_EMPLOYEE",payload:data.employee})
+          alert("eployee updated successfully")
+        })
+        .catch(err=>console.log(err))
+      }
+
+      else{
+
+        fetch("https://kmogu.sse.codesandbox.io/addemployee",{
+          method:"post",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({name,email,mobile,city})
+  
+        })
+        .then(data=>data.json())
+        .then(data=>{
+          if(data.error){
+            alert(data.error)
+          }
+          dispatch({type:"UPDATE_NEW",payload:data})
+          alert("eployee added successfully")
+        })
+        .catch(err=>console.log(err))
+      }
       
       return (()=>{
         return
@@ -110,7 +136,8 @@ useEffect(()=>{
             </div>
 
             <div className="text-left">
-              <button type="submit" className=" mt-4 text-left btn submitBtn">Submit</button>
+              <button type="submit" className=" mt-4 text-left btn submitBtn">{props.data?"Update":"Submit"}</button>
+              
               <button onClick={()=>setDetails(true)} type="button"className=" mt-4 ml-3 text-left btn viewBtn">View All</button>
             </div>
           </form>
